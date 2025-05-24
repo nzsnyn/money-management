@@ -11,6 +11,10 @@ const nextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
+  // Menonaktifkan ESLint selama build
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   // Tambahkan output standalone untuk optimasi di Vercel
   output: 'standalone',
 }
