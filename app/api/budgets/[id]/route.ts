@@ -16,8 +16,8 @@ const BudgetUpdateSchema = z.object({
 // GET /api/budgets/[id] - Get specific budget
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  context: { params: { id: string } }
+): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -27,7 +27,7 @@ export async function GET(
 
     const budget = await prisma.budget.findFirst({
       where: {
-        id: params.id,
+        id: context.params.id,
         userId: session.user.id,
       },
       include: {
@@ -103,8 +103,8 @@ export async function GET(
 // PUT /api/budgets/[id] - Update budget
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  context: { params: { id: string } }
+): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -118,7 +118,7 @@ export async function PUT(
     // Check if budget exists and belongs to user
     const existingBudget = await prisma.budget.findFirst({
       where: {
-        id: params.id,
+        id: context.params.id,
         userId: session.user.id,
       },
     });
@@ -146,7 +146,7 @@ export async function PUT(
 
     const budget = await prisma.budget.update({
       where: {
-        id: params.id,
+        id: context.params.id,
       },
       data: validatedData,
       include: {
@@ -181,8 +181,8 @@ export async function PUT(
 // DELETE /api/budgets/[id] - Delete budget
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  context: { params: { id: string } }
+): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -193,7 +193,7 @@ export async function DELETE(
     // Check if budget exists and belongs to user
     const existingBudget = await prisma.budget.findFirst({
       where: {
-        id: params.id,
+        id: context.params.id,
         userId: session.user.id,
       },
     });
@@ -204,7 +204,7 @@ export async function DELETE(
 
     await prisma.budget.delete({
       where: {
-        id: params.id,
+        id: context.params.id,
       },
     });
 

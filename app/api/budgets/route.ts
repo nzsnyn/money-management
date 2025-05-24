@@ -15,7 +15,7 @@ const BudgetSchema = z.object({
 });
 
 // GET /api/budgets - Get user's budgets
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -123,7 +123,7 @@ export async function GET(request: NextRequest) {
 }
 
 // POST /api/budgets - Create new budget
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     

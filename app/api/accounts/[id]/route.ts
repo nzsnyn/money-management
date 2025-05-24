@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma';
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
@@ -17,7 +17,7 @@ export async function PUT(
       );
     }
 
-    const { id } = params;
+    const { id } = context.params;
     const data = await request.json();
     const { name, type, balance, currency, description } = data;
 
@@ -76,7 +76,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
@@ -88,7 +88,7 @@ export async function DELETE(
       );
     }
 
-    const { id } = params;
+    const { id } = context.params;
 
     // Check if account exists and belongs to user
     const existingAccount = await prisma.bankAccount.findFirst({

@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs"
 import { prisma } from "@/lib/prisma"
 import { sendVerificationEmail, generateVerificationToken } from "@/lib/email"
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const { name, email, password } = await request.json()
 

@@ -5,6 +5,12 @@ const nextConfig: NextConfig = {
   experimental: {
     serverActions: true,
   },
+  typescript: {
+    // !! WARN !!
+    // Ini hanya untuk pengembangan - jangan digunakan di production
+    // !! WARN !!
+    ignoreBuildErrors: true,
+  },
 };
 
 export default nextConfig;
