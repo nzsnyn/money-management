@@ -6,7 +6,7 @@ import { prisma } from '@/lib/prisma';
 export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
-) {
+): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
@@ -58,7 +58,7 @@ export async function PUT(
       data: {
         name,
         type,
-        balance: balance !== undefined ? parseFloat(balance) : existingAccount.balance,
+        balance: balance !== undefined ? Number(balance) : existingAccount.balance,
         currency: currency || existingAccount.currency,
         description: description !== undefined ? description : existingAccount.description,
       },
@@ -77,7 +77,7 @@ export async function PUT(
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
-) {
+): Promise<NextResponse> {
   try {
     const session = await getServerSession(authOptions);
     
